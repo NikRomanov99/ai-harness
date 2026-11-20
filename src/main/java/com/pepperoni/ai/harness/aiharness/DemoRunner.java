@@ -1,0 +1,26 @@
+package com.pepperoni.ai.harness.aiharness;
+
+import com.pepperoni.ai.harness.aiharness.agent.Agent;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+/**
+ * Сценарий текущего урока. Единственный файл, который меняется «до» урока —
+ * всё остальное мы дописываем по ходу.
+ *
+ * <p>Урок 1: хотим просто поговорить с агентом. Пока не с чем: класса Agent нет.
+ */
+@Component
+@Profile("!test")
+@RequiredArgsConstructor
+public class DemoRunner implements CommandLineRunner {
+    private final Agent agent;
+
+    @Override
+    public void run(String... args) {
+        final var response = agent.run("Какая версия java в текущем проекте ?");
+        System.out.println(response);
+    }
+}
