@@ -73,8 +73,33 @@ class MachineViewPrinter {
         print(Ansi.red("> ПОЛУЧЕН ПРИКАЗ: ") + userInput);
     }
 
-    void showTurnFinished(Duration elapsed) {
-        print(Ansi.dim("> ЦИКЛ ЗАВЕРШЁН · " + elapsed.toMillis() + " мс"));
+    /**
+     * Модель решила взять инструмент. Имя для модели и описание предстоящего вызова
+     * пришли из ядра фактами — «ЦЕЛЬ ОБНАРУЖЕНА» это уже наша метафора.
+     */
+    void showToolCallStarted(String target) {
+        print(Ansi.red("> ЦЕЛЬ ОБНАРУЖЕНА: ") + target + Ansi.red(" — ЗАХВАТ"));
+    }
+
+    /**
+     * Ошибка инструмента печатается в полный голос. Для модели она обычный результат,
+     * но создателю за пультом надо видеть, что машина промахнулась.
+     */
+    void showToolCallFinished(boolean error, String preview, Duration duration) {
+        if (error) {
+            print(Ansi.bold(Ansi.red("> ПРОМАХ: ")) + preview);
+            return;
+        }
+        print(Ansi.dim("> АНАЛИЗ ЗАВЕРШЁН · " + duration.toMillis() + " мс"));
+    }
+
+    void showTurnLimitReached(int maxTurns) {
+        print(Ansi.bold(Ansi.red("> ПРЕДЕЛ ИТЕРАЦИЙ (" + maxTurns + ") — МИССИЯ ПРЕРВАНА")));
+    }
+
+
+    void showTurnFinished(Duration duration, int iterations) {
+        print(Ansi.dim("> ЦИКЛ ЗАВЕРШЁН · %s · %d мс".formatted(iterations, duration.toMillis())));
     }
 
     /**

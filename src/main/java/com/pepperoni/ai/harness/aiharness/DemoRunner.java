@@ -20,7 +20,7 @@ public class DemoRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        final var response = agent.run("Какая версия java в текущем проекте ?");
+        final var response = agent.run("Какая версия java в текущем проекте ? Ответь одним предложением");
         System.out.println(response);
     }
 }

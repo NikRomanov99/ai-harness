@@ -14,10 +14,14 @@ spring:
         temperature: 0.2
         model: qwen3.5:4b
 
-
 logging:
   level:
     root: WARN
     com.harness: INFO
   pattern:
     console: "%msg%n"
+
+harness:
+  agent:
+    max-turners: 20
+    workspace-root: .

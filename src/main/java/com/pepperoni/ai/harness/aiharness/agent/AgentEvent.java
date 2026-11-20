@@ -8,5 +8,11 @@ public sealed interface AgentEvent {
 
     record AgentSpoke(String assistantMessage) implements AgentEvent {}
 
-    record TurnFinished(Duration duration) implements AgentEvent {}
+    record TurnFinished(Duration duration, Integer iteration) implements AgentEvent {}
+
+    record ToolCallStarted(String toolName, String description) implements AgentEvent {}
+
+    record ToolCallFinished(String toolName, boolean isError, String preview, Duration duration) implements AgentEvent {}
+
+    record TurnLimitReached(int maxTurns) implements AgentEvent {}
 }
